@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_br_com_devmedia_javamagazine_apacheshiro_model_bean_Permissao" modelAttribute="permissao" path="/permissoes" versionField="Version" z="buNj5kEoz/t+3lMMpuQ68PNgDFs=">
+        <field:input field="nome" id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Permissao_nome" required="true" z="nDCFTi/p/NnzZ1FsxG34cl1ZxQY="/>
+        <field:select field="dominiosSet" id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Permissao_dominios" required="true" items="${dominiosDisponiveis}" multiple="true" path="" z="B6S18JpzgF5MyNtD/c4eNu8v+XI="/>
+        <field:select field="operacoesSet" id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Permissao_operacoes" required="true" items="${operacoesDisponiveis}" multiple="true" path="" z="XgLo1ttgGGUnEvih4zIlRtJw0Ds="/>
+    </form:update>
+</div>

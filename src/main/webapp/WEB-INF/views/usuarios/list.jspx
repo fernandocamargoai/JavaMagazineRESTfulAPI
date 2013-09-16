@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario" items="${usuarios}" z="XcIIjwz8QSM+sIAOoaPoW3E1vFI=">
+        <table:table data="${usuarios}" id="l_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario" path="/usuarios" create="false" z="k+x0zD8Pz9Ds8AO/snz/uCU541o=">
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario_nome" property="nome" z="1ByZ6xBxewXM01GIWDPAO2FIOvE="/>
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario_login" property="login" z="QoCyug2bOs8XMKD1ojHNRuom9Ho="/>
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario_papeis" property="papeis" z="Rp6Zgr0tdpNpUvyOFeCbiFRaU2w="/>
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Usuario_permissoes" property="permissoes" z="MrWOoUnslztTr9g7z0HQNDzZ2TM="/>
+        </table:table>
+    </page:list>
+</div>

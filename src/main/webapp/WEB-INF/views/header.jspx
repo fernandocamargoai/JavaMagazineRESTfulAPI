@@ -1,0 +1,22 @@
+<div id="header" xmlns:shiro="http://shiro.apache.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url var="banner" value="/resources/images/banner-graphic.png"/>
+    <spring:url var="home" value="/"/>
+    <spring:message code="button_home" var="home_label" htmlEscape="false"/>
+    <a href="${home}" name="${fn:escapeXml(home_label)}" title="${fn:escapeXml(home_label)}">
+        <img src="${banner}"/>
+    </a>
+    <shiro:user>
+        <div id="usuarioLogado"><p>Olá, ${usuarioCorrente.nome}. <a href="${home}perfil/logout">Logout</a>. <a
+                href="${home}perfil">Mostrar perfil</a></p></div>
+    </shiro:user>
+    <shiro:guest>
+        <div id="usuarioDeslogado"><p>Olá, Anônimo. <a href="${home}perfil?formlogin">Login</a>. <a
+                href="${home}perfil?form">Cadastrar</a></p></div>
+    </shiro:guest>
+
+</div> 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_br_com_devmedia_javamagazine_apacheshiro_model_bean_Papel" items="${papels}" z="iNxAoDAy3RGeOg6Ff2yVM0+xNtE=">
+        <table:table data="${papels}" id="l_br_com_devmedia_javamagazine_apacheshiro_model_bean_Papel" path="/papeis" z="fkQiA2r1jqnrECE/hygvjJk2xME=">
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Papel_nome" property="nome" z="qr8dqqeSdn1iNADCEaKXUKjEbVA="/>
+            <table:column id="c_br_com_devmedia_javamagazine_apacheshiro_model_bean_Papel_permissoes" property="permissoes" z="RQCUPmi3D+fJS9WOW6ap4HIRm4M="/>
+        </table:table>
+    </page:list>
+</div>
