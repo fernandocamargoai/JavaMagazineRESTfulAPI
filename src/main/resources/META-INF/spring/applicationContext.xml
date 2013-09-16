@@ -41,7 +41,7 @@
 		Edition annotations in your classes without needing to do any special configuration. 
 		The most commonly used annotation is @Autowired, which instructs Spring to 
 		dependency inject an object into your class. -->
-	<context:component-scan base-package="br.com.devmedia.javamagazine.apacheshiro">
+	<context:component-scan base-package="br.com.devmedia.javamagazine.rest">
 		<context:exclude-filter expression=".*_Roo_.*"
 			type="regex" />
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
@@ -81,7 +81,7 @@
 	</bean>
 
 	<bean id="exemploRealm"
-		class="br.com.devmedia.javamagazine.apacheshiro.security.ExemploRealm">
+		class="br.com.devmedia.javamagazine.rest.security.ExemploRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 	</bean>
 
@@ -114,6 +114,7 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
+                /api/** = noSessionCreation, anon
 				/perfil/** = anon
 				/resources/** = anon
 				/ = anon

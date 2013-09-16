@@ -13,7 +13,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
                 
     <!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
-    <context:component-scan base-package="br.com.devmedia.javamagazine.apacheshiro" use-default-filters="false">
+    <context:component-scan base-package="br.com.devmedia.javamagazine.rest" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
     
@@ -86,5 +86,5 @@
       </list>
     </property>
   </bean>
-<bean class="br.com.devmedia.javamagazine.apacheshiro.controller.ApplicationConversionServiceFactoryBean" id="applicationConversionService"/>
+<bean class="br.com.devmedia.javamagazine.rest.controller.ApplicationConversionServiceFactoryBean" id="applicationConversionService"/>
 </beans>
