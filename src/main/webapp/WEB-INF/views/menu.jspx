@@ -1,52 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:shiro="http://shiro.apache.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
-    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
-    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
-        <shiro:hasPermission name="usuario:ler">
-            <menu:category id="c_usuario" z="g6oG0656PcsmmvUYeBtpgiQROck=">
-                <menu:item id="i_usuario_list" messageCode="global_menu_list"
-                           url="/usuarios?page=1&amp;size=${empty param.size ? 10 : param.size}"
-                           z="P7ZIPrcTTBR41JYD0QldbYgsZrM="/>
-            </menu:category>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="comentario:criar,ler">
-            <menu:category id="c_comentario" z="2E9ITjDnEbh1ztvrGtR4mxL/KN4=">
-                <shiro:hasPermission name="comentario:criar">
-                    <menu:item id="i_comentario_new" messageCode="global_menu_new" url="/comentarios?form"
-                               z="J+ZrndoI6FLnEUZazG2bNkY4m0I="/>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="comentario:ler">
-                    <menu:item id="i_comentario_list" messageCode="global_menu_list"
-                               url="/comentarios?page=1&amp;size=${empty param.size ? 10 : param.size}"
-                               z="aPAINYt2YbS9z+enZyQMNeC9CWw="/>
-                </shiro:hasPermission>
-            </menu:category>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="papel:criar,ler">
-            <menu:category id="c_papel" z="Bq0xhRrhgPiyLNl6T08/3Dzmyjw=">
-                <shiro:hasPermission name="papel:criar">
-                    <menu:item id="i_papel_new" messageCode="global_menu_new" url="/papeis?form" z="user-managed"/>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="papel:ler">
-                    <menu:item id="i_papel_list" messageCode="global_menu_list"
-                               url="/papeis?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
-                </shiro:hasPermission>
-            </menu:category>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="permissao:criar,ler">
-            <menu:category id="c_permissao" z="Ts0ZjwTUtkREjO50PA0H0ZYACTw=">
-                <shiro:hasPermission name="permissao:criar">
-                    <menu:item id="i_permissao_new" messageCode="global_menu_new" url="/permissoes?form"
-                               z="zVjcZihtncpZGKWl98PFCLgHoo4="/>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="permissao:ler">
-                    <menu:item id="i_permissao_list" messageCode="global_menu_list"
-                               url="/permissoes?page=1&amp;size=${empty param.size ? 10 : param.size}"
-                               z="NFrsnJiNExMoT2YazrK1R20Fy7M="/>
-                </shiro:hasPermission>
-            </menu:category>
-        </shiro:hasPermission>
-    </menu:menu>
+<div id="menu" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes"/>
+
 </div>
