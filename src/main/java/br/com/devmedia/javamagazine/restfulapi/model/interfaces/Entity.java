@@ -5,7 +5,7 @@ import javax.persistence.Id;
 /**
  * Classe base para todas entidades.
  */
-public interface Entidade {
+public interface Entity {
 
     String getId();
 
