@@ -1,6 +1,6 @@
 package br.com.devmedia.javamagazine.restfulapi.model.bean;
 
-import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entidade;
+import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
-public class User implements Entidade {
+public class User implements Entity {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -27,6 +27,9 @@ public class User implements Entidade {
     private String name;
 
     @NotNull
+    private String email;
+
+    @NotNull
     @Column(unique = true)
     private String login;
 
@@ -34,13 +37,6 @@ public class User implements Entidade {
     private String password;
 
     private String salt;
-
-    @PrePersist
-    private void ensureId(){
-        if(id == null){
-            setId(UUID.randomUUID().toString().replace("-", ""));
-        }
-    }
 
     public String getId() {
         return this.id;

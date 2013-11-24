@@ -1,7 +1,7 @@
 package br.com.devmedia.javamagazine.restfulapi.model.bean;
 
-import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entidade;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +16,10 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
-public class Post implements Entidade {
+@NamedQueries(value = {
+        @NamedQuery(name = "Post.findByAuthor", query = "SELECT o FROM Post AS o WHERE o.author = :author")
+})
+public class Post implements br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -51,5 +54,11 @@ public class Post implements Entidade {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public static List<Post> findPostsByAuthor(User author, int offset, int limit) {
+        if (author == null) throw new IllegalArgumentException("The post argument is required");
+        EntityManager em = Comment.entityManager();
+        return em.createNamedQuery("Post.findByAuthor", Post.class).setParameter("author", author).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }
