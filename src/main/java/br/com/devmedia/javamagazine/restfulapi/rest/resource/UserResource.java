@@ -19,7 +19,7 @@ public class UserResource extends Link{
     public UserResource(UriInfo info, User user, Collection<String> fields, Collection<String> expand) {
         super(info, user);
 
-        if(fields == null){
+        if(fields == null || fields.isEmpty()){
             fields = getDefaultFields();
         }
 
