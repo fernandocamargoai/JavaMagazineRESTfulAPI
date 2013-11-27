@@ -18,7 +18,7 @@ public class PostResource extends Link{
     public PostResource(UriInfo info, Post post, Collection<String> fields, Collection<String> expand) {
         super(info, post);
 
-        if(fields == null){
+        if(fields == null || fields.isEmpty()){
             fields = getDefaultFields();
         }
 

@@ -18,7 +18,7 @@ public class CommentResource extends Link{
     public CommentResource(UriInfo info, Comment comment, Collection<String> fields, Collection<String> expand) {
         super(info, comment);
 
-        if(fields == null){
+        if(fields == null || fields.isEmpty()){
             fields = getDefaultFields();
         }
 
