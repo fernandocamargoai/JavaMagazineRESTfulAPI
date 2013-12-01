@@ -8,6 +8,7 @@ import br.com.devmedia.javamagazine.restfulapi.rest.resource.UserResource;
 import br.com.devmedia.javamagazine.restfulapi.service.UserService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path(Link.USERS)
+@Component
 public class UserController extends BaseController {
 
     @Autowired
@@ -31,7 +33,7 @@ public class UserController extends BaseController {
     public CollectionResource list(@Context UriInfo info, @QueryParam("fields") List<String> fields,
                                    @DefaultValue("false") @QueryParam("expand") boolean expand,
                                    @DefaultValue(CollectionResource.DEFAULT_OFFSET+"") @QueryParam("offset") int offset,
-                                   @DefaultValue(CollectionResource.DEFAULT_OFFSET+"") @QueryParam("limit") int limit){
+                                   @DefaultValue(CollectionResource.DEFAULT_LIMIT+"") @QueryParam("limit") int limit){
         List<User> users = User.findUserEntries(offset, limit);
 
         List<Link> userResources = new ArrayList<Link>(users.size());

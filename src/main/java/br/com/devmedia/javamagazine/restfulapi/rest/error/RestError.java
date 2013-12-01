@@ -29,7 +29,7 @@ public class RestError {
     private static final String DEVELOPER_MESSAGE_PROP_NAME = "developerMessage";
     private static final String MORE_INFO_PROP_NAME = "moreInfo";
 
-    private static final String DEFAULT_MORE_INFO_URL = "mailto:support@stormpath.com";
+    private static final String DEFAULT_MORE_INFO_URL = "mailto:support@javamagazine.com";
 
     private final HttpStatus status;
     private final int code;
