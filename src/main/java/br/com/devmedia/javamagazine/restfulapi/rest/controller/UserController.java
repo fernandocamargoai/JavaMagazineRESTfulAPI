@@ -76,7 +76,7 @@ public class UserController extends BaseController {
     }
 
     @Path("/{id}/")
-    @POST
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@Context UriInfo info, @PathParam("id") String id, Map properties){
         User user = User.findUser(id);

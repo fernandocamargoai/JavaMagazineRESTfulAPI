@@ -30,3 +30,4 @@ tmp
 .directory
 log.*
 *.log
+/database
