@@ -1,24 +1,23 @@
 package br.com.devmedia.javamagazine.restfulapi.model.bean;
 
 import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(table = "users")
+@RooJpaActiveRecord(table = "users", finders = { "findUsersByLoginEquals" })
 public class User implements Entity {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @NotNull
@@ -48,5 +47,4 @@ public class User implements Entity {
     public String toString() {
         return name + " (" + login + ")";
     }
-
 }

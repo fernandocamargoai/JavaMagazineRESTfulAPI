@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class PostController extends BaseController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Context UriInfo info, Post post) {
         post.setAuthor(userService.getCurrentUser());
+        post.setDateCreated(new Date());
         post.persist();
         PostResource postResource = new PostResource(info, post);
         return created(postResource);
