@@ -6,31 +6,18 @@ package br.com.devmedia.javamagazine.restfulapi.model.bean;
 import br.com.devmedia.javamagazine.restfulapi.model.bean.Comment;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 privileged aspect Comment_Roo_Jpa_Entity {
     
     declare @type: Comment: @Entity;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_")
-    private String Comment.id_;
+    declare @type: Comment: @Table(name = "comments");
     
     @Version
     @Column(name = "version")
     private Integer Comment.version;
-    
-    public String Comment.getId_() {
-        return this.id_;
-    }
-    
-    public void Comment.setId_(String id) {
-        this.id_ = id;
-    }
     
     public Integer Comment.getVersion() {
         return this.version;

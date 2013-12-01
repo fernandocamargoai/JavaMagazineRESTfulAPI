@@ -3,8 +3,15 @@ package br.com.devmedia.javamagazine.restfulapi.model.bean;
 import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity;
 import java.util.Date;
 import java.util.List;
-import javax.*;
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(identifierType = String.class)
+@RooJpaActiveRecord(table = "comments")
 @NamedQueries(value = {
         @NamedQuery(name = "Comment.findByPost", query = "SELECT o FROM Comment AS o WHERE o.post = :post"),
         @NamedQuery(name = "Comment.findByAuthor", query = "SELECT o FROM Comment AS o WHERE o.author = :author")

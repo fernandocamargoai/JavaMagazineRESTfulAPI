@@ -9,13 +9,11 @@ import org.springframework.roo.addon.tostring.RooToString;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(table = "users")
 public class User implements Entity {
 
     @Id

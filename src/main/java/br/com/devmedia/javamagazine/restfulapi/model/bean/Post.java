@@ -1,25 +1,33 @@
 package br.com.devmedia.javamagazine.restfulapi.model.bean;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.List;
+
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(table = "posts")
 @NamedQueries(value = {
         @NamedQuery(name = "Post.findByAuthor", query = "SELECT o FROM Post AS o WHERE o.author = :author")
 })
-public class Post implements br.com.devmedia.javamagazine.restfulapi.model.interfaces.Entity {
+public class Post implements Entity {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -40,13 +48,6 @@ public class Post implements br.com.devmedia.javamagazine.restfulapi.model.inter
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date dateCreated;
-
-    @PrePersist
-    private void ensureId() {
-        if(id == null){
-            setId(UUID.randomUUID().toString().replace("-", ""));
-        }
-    }
 
     public String getId() {
         return this.id;

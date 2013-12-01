@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 @Configuration
-@ComponentScan
+@ComponentScan("br.com.devmedia.javamagazine.restfulapi.rest.controller")
 @ImportResource({"classpath:META-INF/cxf/cxf.xml"})
 public class JaxRsServerConfig {
 
@@ -37,9 +37,9 @@ public class JaxRsServerConfig {
         List<ResourceProvider> resourceProviders = new LinkedList<ResourceProvider>();
         for (String beanName : ctx.getBeanDefinitionNames()) {
             if (ctx.findAnnotationOnBean(beanName, Path.class) != null) {
-                SpringResourceFactory factory = new SpringResourceFactory(beanName);
-                factory.setApplicationContext(ctx);
-                resourceProviders.add(factory);
+                SpringResourceFactory resourceFactory = new SpringResourceFactory(beanName);
+                resourceFactory.setApplicationContext(ctx);
+                resourceProviders.add(resourceFactory);
             }
         }
 

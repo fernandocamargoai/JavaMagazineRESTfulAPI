@@ -6,11 +6,14 @@ package br.com.devmedia.javamagazine.restfulapi.model.bean;
 import br.com.devmedia.javamagazine.restfulapi.model.bean.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 privileged aspect User_Roo_Jpa_Entity {
     
     declare @type: User: @Entity;
+    
+    declare @type: User: @Table(name = "users");
     
     @Version
     @Column(name = "version")
