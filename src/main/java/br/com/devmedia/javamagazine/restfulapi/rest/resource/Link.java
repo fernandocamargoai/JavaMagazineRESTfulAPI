@@ -66,4 +66,7 @@ public class Link extends LinkedHashMap {
         return (String)get("href");
     }
 
+    protected String getHrefLastPathSegment() {
+        return getHref().substring(getHref().lastIndexOf('/') + 1);
+    }
 }

@@ -69,7 +69,7 @@ public class Comment implements Entity {
     public static List<Comment> findCommentsByPostId(String postId, int offset, int limit) {
         if (postId == null) throw new IllegalArgumentException("The postId argument is required");
         EntityManager em = Comment.entityManager();
-        return em.createNamedQuery("Comment.findByPostId", Comment.class).setParameter("post", postId).setFirstResult(offset).setMaxResults(limit).getResultList();
+        return em.createNamedQuery("Comment.findByPostId", Comment.class).setParameter("postId", postId).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
     public static List<Comment> findCommentsByAuthor(User author, int offset, int limit) {
@@ -78,9 +78,9 @@ public class Comment implements Entity {
         return em.createNamedQuery("Comment.findByAuthor", Comment.class).setParameter("author", author).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
-    public static List<Comment> findCommentsByAuthor(String authorId, int offset, int limit) {
+    public static List<Comment> findCommentsByAuthorId(String authorId, int offset, int limit) {
         if (authorId == null) throw new IllegalArgumentException("The authorId argument is required");
         EntityManager em = Comment.entityManager();
-        return em.createNamedQuery("Comment.findByAuthorId", Comment.class).setParameter("author", authorId).setFirstResult(offset).setMaxResults(limit).getResultList();
+        return em.createNamedQuery("Comment.findByAuthorId", Comment.class).setParameter("authorId", authorId).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }
