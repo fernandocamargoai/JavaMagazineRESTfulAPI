@@ -24,8 +24,10 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord(table = "comments")
 @NamedQueries(value = {
-        @NamedQuery(name = "Comment.findByPost", query = "SELECT o FROM Comment AS o WHERE o.post = :post"),
-        @NamedQuery(name = "Comment.findByAuthor", query = "SELECT o FROM Comment AS o WHERE o.author = :author")
+        @NamedQuery(name = "Comment.findByPost", query = "SELECT c FROM Comment AS c WHERE c.post = :post"),
+        @NamedQuery(name = "Comment.findByPostId", query = "SELECT c FROM Comment AS c WHERE c.post.id = :postId"),
+        @NamedQuery(name = "Comment.findByAuthor", query = "SELECT c FROM Comment AS c WHERE c.author = :author"),
+        @NamedQuery(name = "Comment.findByAuthorId", query = "SELECT c FROM Comment AS c WHERE c.author.id = :authorId")
 })
 public class Comment implements Entity {
 
@@ -64,9 +66,21 @@ public class Comment implements Entity {
         return em.createNamedQuery("Comment.findByPost", Comment.class).setParameter("post", post).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
+    public static List<Comment> findCommentsByPostId(String postId, int offset, int limit) {
+        if (postId == null) throw new IllegalArgumentException("The postId argument is required");
+        EntityManager em = Comment.entityManager();
+        return em.createNamedQuery("Comment.findByPostId", Comment.class).setParameter("post", postId).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
     public static List<Comment> findCommentsByAuthor(User author, int offset, int limit) {
-        if (author == null) throw new IllegalArgumentException("The post argument is required");
+        if (author == null) throw new IllegalArgumentException("The author argument is required");
         EntityManager em = Comment.entityManager();
         return em.createNamedQuery("Comment.findByAuthor", Comment.class).setParameter("author", author).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    public static List<Comment> findCommentsByAuthor(String authorId, int offset, int limit) {
+        if (authorId == null) throw new IllegalArgumentException("The authorId argument is required");
+        EntityManager em = Comment.entityManager();
+        return em.createNamedQuery("Comment.findByAuthorId", Comment.class).setParameter("author", authorId).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }

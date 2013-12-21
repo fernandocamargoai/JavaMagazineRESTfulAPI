@@ -56,8 +56,16 @@ public class PostResource extends Link{
                 commentResources.add(new Link(info, comment));
             }
 
-            put(COMMENTS, new CollectionResource(info, Link.COMMENTS, commentResources));
+            put(COMMENTS, new CollectionResource(info, getPathForComments(post.getId()), commentResources));
         }
+    }
+
+    private static String getPathForComments(String id){
+        StringBuilder path = new StringBuilder(Link.POSTS);
+        path.append(Link.PATH_SEPARATOR);
+        path.append(id);
+        path.append(Link.COMMENTS);
+        return path.toString();
     }
 
     public PostResource(UriInfo info, Post post) {
