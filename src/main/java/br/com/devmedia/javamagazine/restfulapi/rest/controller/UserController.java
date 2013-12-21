@@ -60,9 +60,7 @@ public class UserController extends BaseController {
         return created(userResource);
     }
 
-    @Path("/{id}/")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
     public UserResource getUser(@Context UriInfo info, @PathParam("id") String id,
                                 @QueryParam("fields") List<String> fields,
                                 @QueryParam("expand") List<String> expand){
