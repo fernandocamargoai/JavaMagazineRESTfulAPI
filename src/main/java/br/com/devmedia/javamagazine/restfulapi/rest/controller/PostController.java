@@ -55,6 +55,7 @@ public class PostController extends BaseController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response create(@Context UriInfo info, Post post) {
         post.setAuthor(userService.getCurrentUser());
         post.setDateCreated(new Date());
@@ -63,9 +64,7 @@ public class PostController extends BaseController {
         return created(postResource);
     }
 
-    @Path("/{id}/")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
     public PostResource getPost(@Context UriInfo info, @PathParam("id") String id,
                                 @QueryParam("fields") List<String> fields,
                                 @QueryParam("expand") List<String> expand) {
@@ -75,12 +74,15 @@ public class PostController extends BaseController {
             throw new UnknownResourceException();
         }
 
-        return new PostResource(info, post);
+        PostResource postResource = new PostResource(info, post, fields, expand);
+        postResource.setUserService(userService);
+        return postResource;
     }
 
-    @Path("/{id}/")
+    @Path("/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updatePost(@Context UriInfo info, @PathParam("id") String id, Map properties) {
         Post post = Post.findPost(id);
 
@@ -105,7 +107,7 @@ public class PostController extends BaseController {
         return Response.ok(new PostResource(info, post), MediaType.APPLICATION_JSON).build();
     }
 
-    @Path("/{id}/")
+    @Path("/{id}")
     @DELETE
     public void deleteUser(@PathParam("id") String id){
         Post post = Post.findPost(id);

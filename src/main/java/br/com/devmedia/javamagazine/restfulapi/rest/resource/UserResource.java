@@ -98,10 +98,9 @@ public class UserResource extends Link{
                                         @DefaultValue("false") @QueryParam("expand") boolean expand,
                                         @DefaultValue(CollectionResource.DEFAULT_OFFSET+"") @QueryParam("offset") int offset,
                                         @DefaultValue(CollectionResource.DEFAULT_LIMIT+"") @QueryParam("limit") int limit){
-        String id = getHref().substring(getHref().lastIndexOf('/')+1);
-        User user = User.findUser(id);
+        String id = getHrefLastPathSegment();
 
-        List<Post> posts = Post.findPostsByAuthor(user, offset, limit);
+        List<Post> posts = Post.findPostsByAuthorId(id, offset, limit);
 
         List<Link> postResources = new ArrayList<Link>(posts.size());
 
@@ -117,6 +116,33 @@ public class UserResource extends Link{
         }
 
         return new CollectionResource(info, getPathForPosts(id), postResources);
+    }
+
+    @GET
+    @Path(Link.COMMENTS)
+    @Produces(MediaType.APPLICATION_JSON)
+    public CollectionResource listComments(@Context UriInfo info, @QueryParam("fields") List<String> fields,
+                                        @DefaultValue("false") @QueryParam("expand") boolean expand,
+                                        @DefaultValue(CollectionResource.DEFAULT_OFFSET+"") @QueryParam("offset") int offset,
+                                        @DefaultValue(CollectionResource.DEFAULT_LIMIT+"") @QueryParam("limit") int limit){
+        String id = getHrefLastPathSegment();
+
+        List<Comment> comments = Comment.findCommentsByAuthorId(id, offset, limit);
+
+        List<Link> commentResources = new ArrayList<Link>(comments.size());
+
+        if(expand){
+            for(Comment comment : comments){
+                commentResources.add(new CommentResource(info, comment, fields, null));
+            }
+        }
+        else {
+            for(Comment comment : comments){
+                commentResources.add(new Link(info, comment));
+            }
+        }
+
+        return new CollectionResource(info, getPathForPosts(id), commentResources);
     }
 
     @GET

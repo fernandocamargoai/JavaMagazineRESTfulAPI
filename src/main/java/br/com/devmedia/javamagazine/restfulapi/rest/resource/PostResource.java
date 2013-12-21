@@ -2,12 +2,20 @@ package br.com.devmedia.javamagazine.restfulapi.rest.resource;
 
 import br.com.devmedia.javamagazine.restfulapi.model.bean.Comment;
 import br.com.devmedia.javamagazine.restfulapi.model.bean.Post;
+import br.com.devmedia.javamagazine.restfulapi.rest.controller.BaseController;
+import br.com.devmedia.javamagazine.restfulapi.service.UserService;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class PostResource extends Link{
+
+    private UserService userService;
 
     public static final String AUTHOR = "author";
     public static final String TITLE = "title";
@@ -56,7 +64,7 @@ public class PostResource extends Link{
                 commentResources.add(new Link(info, comment));
             }
 
-            put(COMMENTS, new CollectionResource(info, Link.COMMENTS, commentResources));
+            put(COMMENTS, new CollectionResource(info, getPathForComments(post.getId()), commentResources));
         }
     }
 
@@ -66,6 +74,64 @@ public class PostResource extends Link{
 
     public static Collection<String> getDefaultFields(){
         return Arrays.asList(AUTHOR, TITLE, TEXT, DATE_CREATED);
+    }
+
+    private static String getPathForComments(String id) {
+        StringBuilder path = new StringBuilder(Link.POSTS);
+        path.append(Link.PATH_SEPARATOR);
+        path.append(id);
+        path.append(Link.COMMENTS);
+        return path.toString();
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @POST
+    @Path(Link.COMMENTS)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createComment(@Context UriInfo info, Comment comment) {
+        comment.setAuthor(userService.getCurrentUser());
+        comment.setDateCreated(new Date());
+        comment.setPost(Post.findPost(getHrefLastPathSegment()));
+        comment.persist();
+        CommentResource commentResource = new CommentResource(info, comment);
+        return BaseController.created(commentResource);
+    }
+
+    @GET
+    @Path(Link.COMMENTS)
+    @Produces(MediaType.APPLICATION_JSON)
+    public CollectionResource listComments(@Context UriInfo info, @QueryParam("fields") List<String> fields,
+                                           @DefaultValue("false") @QueryParam("expand") boolean expand,
+                                           @DefaultValue(CollectionResource.DEFAULT_OFFSET+"") @QueryParam("offset") int offset,
+                                           @DefaultValue(CollectionResource.DEFAULT_LIMIT+"") @QueryParam("limit") int limit){
+        String id = getHrefLastPathSegment();
+
+        List<Comment> comments = Comment.findCommentsByPostId(id, offset, limit);
+
+        List<Link> commentResources = new ArrayList<Link>(comments.size());
+
+        if(expand){
+            for(Comment comment : comments){
+                commentResources.add(new CommentResource(info, comment, fields, null));
+            }
+        }
+        else {
+            for(Comment comment : comments){
+                commentResources.add(new Link(info, comment));
+            }
+        }
+
+        return new CollectionResource(info, getPathForComments(id), commentResources);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public PostResource getPostResource(){
+        return this;
     }
 
 }

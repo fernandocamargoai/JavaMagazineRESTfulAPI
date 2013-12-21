@@ -25,7 +25,8 @@ import java.util.List;
 @RooToString
 @RooJpaActiveRecord(table = "posts")
 @NamedQueries(value = {
-        @NamedQuery(name = "Post.findByAuthor", query = "SELECT o FROM Post AS o WHERE o.author = :author")
+        @NamedQuery(name = "Post.findByAuthor", query = "SELECT p FROM Post AS p WHERE p.author = :author"),
+        @NamedQuery(name = "Post.findByAuthorId", query = "SELECT p FROM Post AS p WHERE p.author.id = :authorId")
 })
 public class Post implements Entity {
 
@@ -58,8 +59,14 @@ public class Post implements Entity {
     }
 
     public static List<Post> findPostsByAuthor(User author, int offset, int limit) {
-        if (author == null) throw new IllegalArgumentException("The post argument is required");
-        EntityManager em = Comment.entityManager();
+        if (author == null) throw new IllegalArgumentException("The author argument is required");
+        EntityManager em = Post.entityManager();
         return em.createNamedQuery("Post.findByAuthor", Post.class).setParameter("author", author).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    public static List<Post> findPostsByAuthorId(String authorId, int offset, int limit) {
+        if (authorId == null) throw new IllegalArgumentException("The authorId argument is required");
+        EntityManager em = Post.entityManager();
+        return em.createNamedQuery("Post.findByAuthorId", Post.class).setParameter("authorId", authorId).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }

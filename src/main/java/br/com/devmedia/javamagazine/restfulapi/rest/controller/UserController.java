@@ -54,6 +54,7 @@ public class UserController extends BaseController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response create(@Context UriInfo info, User user){
         user.persist();
         UserResource userResource = new UserResource(info, user);
@@ -73,9 +74,10 @@ public class UserController extends BaseController {
         return new UserResource(info, user, fields, expand);
     }
 
-    @Path("/{id}/")
+    @Path("/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(@Context UriInfo info, @PathParam("id") String id, Map properties){
         User user = User.findUser(id);
 
@@ -96,7 +98,7 @@ public class UserController extends BaseController {
         return Response.ok(new UserResource(info, user), MediaType.APPLICATION_JSON).build();
     }
 
-    @Path("/{id}/")
+    @Path("/{id}")
     @DELETE
     public void deleteUser(@PathParam("id") String id){
         User user = User.findUser(id);
