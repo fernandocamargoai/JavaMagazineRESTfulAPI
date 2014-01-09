@@ -142,7 +142,7 @@ public class UserResource extends Link{
             }
         }
 
-        return new CollectionResource(info, getPathForPosts(id), commentResources);
+        return new CollectionResource(info, getPathForComments(id), commentResources);
     }
 
     @GET
